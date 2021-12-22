@@ -1,0 +1,48 @@
+﻿@model CartIndexViewModel 
+@{
+    ViewData["Title"] = "Index";
+    int num = 0;
+}
+
+<div class="container">
+    <h1>Итого в корзине:</h1>
+    <div class="row">
+        <div class="col-3">
+            @*<vc:categories-menu current-category="@Model.CurrentCategory"></vc:categories-menu>*@
+        </div>
+        <div class="col">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>№ п/п</th>
+                        <th>Товар</th>
+                        <th>Цена</th>
+                        <th>Количество</th>
+                        <th>Сумма</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (CartItem cartItem in Model.Cart.CartItems)
+                    {
+                        <tr>
+                            <td>@(++num)</td>
+                            <td>@cartItem.Product.Name</td>
+                            <td>@cartItem.Product.Price.ToString("# грн.")</td>
+                            <td>@cartItem.Quantity</td>
+                            <td>@((cartItem.Product.Price*cartItem.Quantity).ToString("# грн."))</td>
+                            <td>
+                                <form asp-action="RemoveFromCart" asp-controller="Cart" method="post">
+                                    <input type="hidden" name="id" value="@cartItem.Product.Id" />
+                                    <input type="hidden" name="returnUrl" value="@Model.ReturnUrl" />
+                                    <input type="submit" value="Удалить" class="btn btn-sm btn-warning" />
+                                </form>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+            <a href="@Model.ReturnUrl" class="btn btn-success">Вернуться к покупкам</a>
+        </div>
+    </div>
+</div>

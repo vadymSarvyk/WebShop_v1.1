@@ -1,0 +1,28 @@
+﻿@using PagedList.Core.Mvc
+@model HomeIndexViewModel
+@{
+    ViewData["Title"] = "Index";
+    var routeData = new Dictionary<string, string>
+    {
+        {"page", Model.Products.PageNumber.ToString()},
+        {"category", Model.CurrentCategory }
+    };
+}
+
+
+<div class="container">
+    <h1>Index</h1>
+    <div class="row">
+        <div class="col-3">
+            <vc:categories-menu current-category="@Model.CurrentCategory"></vc:categories-menu>
+        </div>
+        <div class="col">
+            @foreach (Product product in Model.Products)
+            {
+                @await Html.PartialAsync("_ShowProduct", product);
+            }
+            <pager class="pager-container" list="@Model.Products" options="@PagedListRenderOptions.Bootstrap4Full"
+                   asp-action="Index" asp-controller="Home" asp-all-route-data="@routeData"></pager>
+        </div>
+    </div>
+</div>

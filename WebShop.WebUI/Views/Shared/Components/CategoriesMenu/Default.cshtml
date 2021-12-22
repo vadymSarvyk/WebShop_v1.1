@@ -1,0 +1,9 @@
+﻿@model Tuple<IEnumerable<string>, string>
+@foreach(var category in Model.Item1)
+{
+<div class="d-grid gap-2">
+    <a asp-action="Index" asp-controller="Home" asp-route-category="@category"
+       class='@(category==Model.Item2 ? "btn btn-outline-primary" :  "btn btn-outline-secondary")'>@category</a>
+</div>
+
+}

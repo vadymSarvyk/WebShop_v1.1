@@ -1,0 +1,24 @@
+﻿@using Microsoft.AspNetCore.Mvc
+@model Product
+
+    <div class="card">
+        <div class="card-header">
+            <h5>@Model.Name
+            <span class="badge bg-info float-end">@Model.Price.ToString("# грн.")</span>
+            </h5>
+            
+        </div>
+        <div class="card-body">
+            <h5 class="card-title">@Model.Category.Name</h5>
+            <p class="card-text">
+                Description
+            </p>
+            @*<a asp-action="AddToCart" asp-controller="Cart" asp-route-id="@Model.Id" class="btn btn-primary">Go somewhere</a>*@
+            <form asp-action="AddToCart" asp-controller="Cart" method="post">
+                <input type="hidden" name="id" value="@Model.Id" />
+                <input type="hidden" name="returnUrl" value="@(Context.Request.Path.Value+Context.Request.QueryString)" />
+                <input type="submit" value="Добавить в корзину" class="btn btn-success btn-sm float-end" />
+            </form>
+        </div>
+    </div>
+

@@ -1,0 +1,17 @@
+﻿@model Cart
+@{
+    ViewData["Title"] = "ShowCart";
+}
+
+<h1>ShowCart</h1>
+@foreach (CartItem item in Model.CartItems)
+{
+    <div class="card w-75">
+        <div class="card-body">
+            <h5 class="card-title">@item.Product.Name</h5>
+            <p class="card-text">@item.Product.Price.ToString("# грн.")</p>
+            <a href="#" class="btn btn-primary">Купить</a>
+        </div>
+    </div>
+}
+
